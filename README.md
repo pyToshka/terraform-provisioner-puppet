@@ -1,6 +1,6 @@
 # terraform-provisioner-puppet [experimental]
 
-
+[![Build Status](https://travis-ci.org/pyToshka/terraform-provisioner-puppet.svg?branch=master)](https://travis-ci.org/pyToshka/terraform-provisioner-puppet)
 
 > Provision terraform resources with puppet
 
