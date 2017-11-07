@@ -21,10 +21,7 @@ const(
 )
 func (p *Provisioner) Run(o terraform.UIOutput, comm communicator.Communicator) error {
 
-
-
 	command:=fmt.Sprintf("'curl %s -o %s -s'", agent_url,filepath)
-	fmt.Sprintf(command)
 	if err := p.runCommand(o, comm, command); err != nil {
 		return err
 	}
