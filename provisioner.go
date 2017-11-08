@@ -10,18 +10,18 @@ import (
 )
 
 type Provisioner struct {
-	useSudo            bool			   `mapstructure:"use_sudo"`
-	MasterIP           string          `mapstructure:"puppetmaster_ip"`
-
+	useSudo  bool   `mapstructure:"use_sudo"`
+	MasterIP string `mapstructure:"puppetmaster_ip"`
 }
 
-const(
-	agent_url="https://raw.githubusercontent.com/pyToshka/puppet-install-shell/master/install_puppet_agent.sh"
-	filepath="/tmp/install.sh"
+const (
+	agent_url = "https://raw.githubusercontent.com/pyToshka/puppet-install-shell/master/install_puppet_agent.sh"
+	filepath  = "/tmp/install.sh"
 )
+
 func (p *Provisioner) Run(o terraform.UIOutput, comm communicator.Communicator) error {
 
-	command:=fmt.Sprintf("'curl %s -o %s -s'", agent_url,filepath)
+	command := fmt.Sprintf("'curl %s -o %s -s'", agent_url, filepath)
 	if err := p.runCommand(o, comm, command); err != nil {
 		return err
 	}
@@ -57,9 +57,9 @@ func (p *Provisioner) AddPuppetAgentPath(o terraform.UIOutput, comm communicator
 	}
 	return nil
 }
-func (p *Provisioner)RunPuppetAgent(o terraform.UIOutput, comm communicator.Communicator) error {
+func (p *Provisioner) RunPuppetAgent(o terraform.UIOutput, comm communicator.Communicator) error {
 
-	err := p.runCommand(o, comm, fmt.Sprintf("'/opt/puppetlabs/bin/puppet resource host puppet ensure=present ip=%s ;/opt/puppetlabs/bin/puppet agent --enable; /opt/puppetlabs/bin/puppet agent -t'",p.MasterIP))
+	err := p.runCommand(o, comm, fmt.Sprintf("'/opt/puppetlabs/bin/puppet resource host puppet ensure=present ip=%s ;/opt/puppetlabs/bin/puppet agent --enable; /opt/puppetlabs/bin/puppet agent -t'", p.MasterIP))
 	if err != nil {
 		return err
 	}
@@ -105,7 +105,6 @@ func (p *Provisioner) runCommand(
 
 	return err
 }
-
 
 func (p *Provisioner) copyOutput(o terraform.UIOutput, r io.Reader, doneCh chan<- struct{}) {
 	defer close(doneCh)

@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-type ResourceProvisioner struct {}
+type ResourceProvisioner struct{}
 
 func (r *ResourceProvisioner) Apply(
 	o terraform.UIOutput,
@@ -49,7 +49,7 @@ func (r *ResourceProvisioner) Apply(
 	}
 	defer comm.Disconnect()
 
-	if err :=provisioner.Run(o, comm); err != nil {
+	if err := provisioner.Run(o, comm); err != nil {
 		return err
 	}
 	if err := provisioner.fixPerm(o, comm); err != nil {
